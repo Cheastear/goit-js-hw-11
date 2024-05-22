@@ -1,5 +1,5 @@
 import { gallery, searchBar, searchInput } from "../main";
-import { galleryRender, loadingWait, } from "./render-functions";
+import { galleryRender, loader, } from "./render-functions";
 import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
 
@@ -12,7 +12,7 @@ searchBar.addEventListener('submit', e => {
         });
         return;
     }
-    loadingWait();
+    loader();
 
     const params = new URLSearchParams({
         key: '44001471-3db462177f0e91bc0a7989cfe',
@@ -40,5 +40,6 @@ searchBar.addEventListener('submit', e => {
         })
         .catch((error) => {
             console.log(error);
-        })
-})
+        });
+    e.currentTarget.reset()
+});

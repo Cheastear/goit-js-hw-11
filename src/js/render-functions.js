@@ -2,10 +2,8 @@ import { gallery } from "../main"
 import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
 
-new SimpleLightbox('.gallery-card a', { /* options */ });
-
-export function loadingWait() {
-    gallery.innerHTML = "<p>Loading images, please wait...</p>"
+export function loader() {
+    gallery.innerHTML = '<span class="loader"></span>';
 }
 
 export function galleryRender(photos) {
@@ -23,5 +21,8 @@ export function galleryRender(photos) {
             </div>`;
     });
     gallery.innerHTML = innerHTML;
-
+    new SimpleLightbox('.gallery-card a', {
+        captionsData: 'alt',
+        captionDelay: 250,
+    }).refresh()
 }
