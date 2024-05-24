@@ -1,19 +1,7 @@
-import { gallery, searchBar, searchInput } from "../main";
-import { galleryRender, loader, } from "./render-functions";
-import iziToast from "izitoast";
-import "izitoast/dist/css/iziToast.min.css";
+import { searchInput } from "../main";
+import { galleryRender} from "./render-functions";
 
-searchBar.addEventListener('submit', e => {
-    e.preventDefault();
-    if (searchInput.value == '' || searchInput.value == ' ') {
-        iziToast.error({
-            position: 'topRight',
-            message: 'Search bar is empty!'
-        });
-        return;
-    }
-    loader();
-
+export function request() {
     const params = new URLSearchParams({
         key: '44001471-3db462177f0e91bc0a7989cfe',
         q: searchInput.value,
@@ -30,16 +18,9 @@ searchBar.addEventListener('submit', e => {
             return response.json();
         })
         .then((photos) => {
-            if (photos.hits.length == 0) {
-                iziToast.error({
-                    position: 'topRight',
-                    message: "Sorry, there are no images matching your search query. Please try again!"
-                });
-            }
             galleryRender(photos);
         })
         .catch((error) => {
             console.log(error);
         });
-    e.currentTarget.reset()
-});
+}
